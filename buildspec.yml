@@ -19,23 +19,22 @@ phases:
   build:
     commands:
      - echo building dev images...
-     - docker-compose up -d --build
      - echo building prod images...
      - >
         docker build \
-          -f be/Dockerfile \
+          -f uber-backend/Dockerfile \
           -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod \
-          ./be
+          ./uber-backend
      - >
         docker build \
-          -f fe/Dockerfile \
+          -f uber-frontend/Dockerfile \
           -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod \
           --build-arg NODE_ENV=production \
           --build-arg REACT_APP_API_SERVICE_URL=$REACT_APP_API_SERVICE_URL \
-          ./fe
+          ./uber-frontend
   post_build:
     commands:
-      - echo pushing prod images to ecr...
+      - echo pushing prod images to ecr..
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod
       - CREDENTIALS=$(aws sts assume-role --role-arn $EKS_KUBECTL_ROLE_ARN --role-session-name codebuild-kubectl --duration-seconds 900)
