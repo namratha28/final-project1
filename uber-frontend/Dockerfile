@@ -48,5 +48,5 @@ EXPOSE 80
 # This makes it easy to run in debug mode (foreground) and directly switch 
 # to running in production mode (background) by changing command line args.
 # But, as of 22 October 2019, official Nginx docker images all have line:
-#CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
 # So, don't need to specify it in our Dockerfile.
