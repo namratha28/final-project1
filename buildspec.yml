@@ -26,7 +26,6 @@ phases:
     commands:
      - echo building dev images..
      - echo building prod images...
-     - docker-compose up -d --build
      - >
         docker build \
           -f uber-backend/Dockerfile \
