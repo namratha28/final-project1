@@ -35,13 +35,8 @@ RUN npm run build
 FROM nginx
 
 # update nginx conf
-#RUN rm -rf /etc/nginx/conf.d
-#COPY conf /etc/nginx
-
-# Nginx config
 RUN rm -rf /etc/nginx/conf.d
 COPY conf /etc/nginx
-
 # copy static files
 COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
@@ -53,5 +48,6 @@ EXPOSE 80
 # This makes it easy to run in debug mode (foreground) and directly switch 
 # to running in production mode (background) by changing command line args.
 # But, as of 22 October 2019, official Nginx docker images all have line:
+
 CMD ["nginx", "-g", "daemon off;"]
-# So, don't need to specify it in our Dockerfile.
+
