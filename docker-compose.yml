@@ -27,7 +27,6 @@ services:
     build:
       context: ./uber-frontend
       dockerfile: Dockerfile
-    # ~dk same problem here..
     #volumes:
       #- './fe:/usr/src/app'
       #- '/usr/src/app/node_modules'
