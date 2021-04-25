@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = "http://localhost:5000/app/";
+const url = "/";
 //const url = `http://${process.env.REACT_APP_IP_ADDRESS}:5000/app/`;
 
 export const signUp = newUser => {

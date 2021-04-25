@@ -1,4 +1,10 @@
 version: 0.2
+
+env:
+  variables:
+    AWS_REGION_2: "us-east-2"
+    REACT_APP_API_SERVICE_URL: "http://abcb4ad7b0c33459fbce9dd5ef242127-1786430051.us-west-2.elb.amazonaws.com"
+
 phases:
   install:
     commands:
@@ -20,6 +26,7 @@ phases:
     commands:
      - echo building dev images..
      - echo building prod images...
+     - docker-compose up -d --build
      - >
         docker build \
           -f uber-backend/Dockerfile \
