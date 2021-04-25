@@ -35,8 +35,8 @@ RUN npm run build
 FROM nginx
 
 # update nginx conf
-#RUN rm -rf /etc/nginx/conf.d
-#COPY conf /etc/nginx
+RUN rm -rf /etc/nginx/conf.d
+COPY conf /etc/nginx
 # copy static files
 COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
