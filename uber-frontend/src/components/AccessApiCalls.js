@@ -1,7 +1,7 @@
 import axios from 'axios';
 //const url = "http://localhost:5000/app/";
-const url1 = `http://${process.env.REACT_APP_IP_ADDRESS}:5000/app/`;
-const url="/app/";
+const url = `http://a37b65e3dc009487782a2f52dc8ee4bb-479889397.us-west-2.elb.amazonaws.com/app/`;
+//const url="/app/";
 
 export const signUp = newUser => {
     return axios
@@ -37,7 +37,7 @@ export const signIn = user => {
         }
         return res;
     }).catch(res => {
-        console.log(url1);
+        console.log(url);
         console.log(res);
         let errorMessage = {"message": "error"}
         return errorMessage;
