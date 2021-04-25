@@ -22,7 +22,7 @@ export const signUp = newUser => {
 
 export const signIn = user => {
     return axios
-    .post("http://a749f148b68924502938b98686449a6c-498166786.us-west-2.elb.amazonaws.com/app/signin", {
+    .post("http://a749f148b68924502938b98686449a6c-498166786.us-west-2.elb.amazonaws.com:5000/app/signin", {
         email: user.email,
         password: user.password
     }).then(res => {
