@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
- name: uber-fe
+ name: sa-frontend
  labels:
-  app: uber-fe
+  app: sa-frontend
 spec:
  replicas: 3
  minReadySeconds: 15
@@ -14,15 +14,15 @@ spec:
    maxSurge: 1 
  selector:
   matchLabels:
-   app: uber-fe
+   app: sa-frontend
  template:
   metadata:
    labels:
-    app: uber-fe
+    app: sa-frontend
   spec:
    containers:
    - image: CONTAINER_IMAGE
      imagePullPolicy: Always
-     name: uber-fe
+     name: sa-frontend
      ports:
      - containerPort: 80

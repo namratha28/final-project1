@@ -1,52 +1,33 @@
-###########
-# BUILDER #
-###########
-
-# pull official base image
-FROM node:15.2.0-alpine as builder
-
-# set working directory
-WORKDIR /usr/src/app
-
-# add /usr/src/app/node_modules/.bin to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-
-# install and cache app dependencies
+# => Build container
+FROM node:alpine as builder
+WORKDIR /app
 COPY package.json .
-COPY package-lock.json .
-RUN npm ci
-#RUN npm install react-scripts@4.0.0 --silent
-
-# set environment variables
-ARG REACT_APP_API_SERVICE_URL
-ENV REACT_APP_API_SERVICE_URL $REACT_APP_API_SERVICE_URL
-ARG NODE_ENV
-ENV NODE_ENV $NODE_ENV
-
-# create build
 COPY . .
 RUN npm run build
 
-#########
-# FINAL #
-#########
+# => Run container
+FROM nginx:1.15.2-alpine
 
-# base image
-FROM nginx
-
-# update nginx conf
+# Nginx config
 RUN rm -rf /etc/nginx/conf.d
 COPY conf /etc/nginx
-# copy static files
-COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
-# expose port
+# Static build
+COPY --from=builder /app/build /usr/share/nginx/html/
+
+# Default port exposure
 EXPOSE 80
 
-# run nginx
-# Nginx uses the daemon off directive to run in the foreground. 
-# This makes it easy to run in debug mode (foreground) and directly switch 
-# to running in production mode (background) by changing command line args.
-# But, as of 22 October 2019, official Nginx docker images all have line:
-CMD ["nginx", "-g", "daemon off;"]
-# So, don't need to specify it in our Dockerfile.
+# Copy .env file and shell script to container
+WORKDIR /usr/share/nginx/html
+COPY ./env.sh .
+COPY .env .
+
+# Add bash
+RUN apk add --no-cache bash
+
+# Make our shell script executable
+RUN chmod +x env.sh
+
+# Start Nginx server
+CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
