@@ -35,8 +35,6 @@ phases:
         docker build \
           -f uber-frontend/Dockerfile \
           -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod \
-          --build-arg NODE_ENV=production \
-          --build-arg REACT_APP_API_SERVICE_URL=$REACT_APP_API_SERVICE_URL \
           ./uber-frontend
   post_build:
     commands:
