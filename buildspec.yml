@@ -47,6 +47,5 @@ phases:
       - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
       - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
       - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
-      - kubectl delete -f kube-manifests/uber-fe.yaml
-      - kubectl delete -f kube-manifests/service-fe.yaml
+      - kubectl delete -f kube-manifests/
       - kubectl apply -f kube-manifests/
