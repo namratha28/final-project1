@@ -26,7 +26,7 @@ import jwt
 g = dict()
 
 mongo_client = MongoClient(
-    "mongodb+srv://admin:admin@busbookings.27hkg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    "mongodb+srv://admin:admin@busbookings.27hkg.mongodb.net/myFirstDatabase?authSource=admin&retryWrites=true&w=majority")
 app = Flask(__name__)
 CORS(app)
 basedir = os.path.abspath(os.path.dirname(__file__))
