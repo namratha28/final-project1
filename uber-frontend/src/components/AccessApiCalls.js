@@ -1,6 +1,6 @@
 import axios from 'axios';
-const url = "http://localhost:5000/app/";
-//const url = `http://a37b65e3dc009487782a2f52dc8ee4bb-479889397.us-west-2.elb.amazonaws.com/app/`;
+//const url = "http://localhost:5000/app/";
+const url = "http://ae8b71cec812b4b7aaa531aacf39603d-1116969490.us-west-2.elb.amazonaws.com/app/";
 //const url="/app/";
 
 export const signUp = newUser => {
