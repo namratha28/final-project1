@@ -19,6 +19,7 @@ phases:
       - export PATH=$PWD/:$PATH
   pre_build:
       commands:
+        - kubectl delete -f kube-manifests/
         - sed -i 's@CONTAINER_IMAGE@'"$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod"'@' kube-manifests/uber-fe.yaml
         - sed -i 's@CONTAINER_IMAGE@'"$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod"'@' kube-manifests/uber-be.yaml
         - export KUBECONFIG=$HOME/.kube/config
